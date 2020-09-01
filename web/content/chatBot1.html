@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script language="JavaScript">
+	    function TriggeredKey(e)
+	    {
+	        var keycode;
+	        if (window.event) keycode = window.event.keyCode;
+	        if (window.event.keyCode = 13 ) return false;
+	    }
+	</script>
+	<style>
+		body {font-family: Arial, Helvetica, sans-serif;}
+		* {box-sizing: border-box;}
+
+		/* Button used to open the chat form - fixed at the bottom of the page */
+		.open-button {
+		  background-color: #555;
+		  color: white;
+		  padding: 16px 20px;
+		  border: none;
+		  cursor: pointer;
+		  opacity: 0.8;
+		  position: fixed;
+		  bottom: 23px;
+		  right: 28px;
+		  width: 280px;
+		}
+
+		/* The popup chat - hidden by default */
+		.chat-popup {
+		  display: none;
+		  position: fixed;
+		  bottom: 0;
+		  right: 15px;
+		  border: 3px solid #f1f1f1;
+		  z-index: 9;
+		}
+
+		/* Add styles to the form container */
+		.form-container {
+		  max-width: 300px;
+		  padding: 10px;
+		  background-color: white;
+		}
+
+		/* Full-width textarea */
+		.form-container textarea {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  border: none;
+		  background: #f1f1f1;
+		  resize: none;
+		  min-height: 200px;
+		}
+
+		/* When the textarea gets focus, do something */
+		.form-container textarea:focus {
+		  background-color: #ddd;
+		  outline: none;
+		}
+
+		/* Set a style for the submit/send button */
+		.form-container .btn {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 16px 20px;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  margin-bottom:10px;
+		  opacity: 0.8;
+		}
+
+		/* Add a red background color to the cancel button */
+		.form-container .cancel {
+		  background-color: red;
+		}
+
+		/* Add some hover effects to buttons */
+		.form-container .btn:hover, .open-button:hover {
+		  opacity: 1;
+		}
+
+		#user{
+			color: red;
+		}
+                            /*Navbar*/
+                body {
+                        margin: 0;
+                      }
+
+                      ul {
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        width: 20%;
+                        background-color: #f1f1f1;
+                        position: fixed;
+                        height: 100%;
+                        overflow: auto;
+                      }
+
+                      li a {
+                        display: block;
+                        color: #000;
+                        padding: 8px 16px;
+                        text-decoration: none;
+                      }
+
+                      li a.active {
+                        background-color: #4CAF50;
+                        color: white;
+                      }
+
+                      li a:hover:not(.active) {
+                        background-color: #555;
+                        color: white;
+                      }
+                      /*Navbar style ends*/
+                      
+/*                      table, th, td {
+                        border: 1px solid black;
+                        padding: 5px;
+                       }
+                      table {
+                       border-spacing: 5px;
+                       margin-left:auto;
+                       margin-right:auto; 
+                      }*/
+               
+	</style>
+</head>
+<body>
+<!--NAVBAR--><ul>
+  <li><a class="active" href="/virtusa/content/chatBot1.html">Home</a></li>
+  <!--<li><a href="Response.html">My Response</a></li>-->
+  <li><a href="#contact">About us and contact details</a></li>
+  <li><a href="/index.htm">Logout</a></li>
+  <li><h6><b>NOTE:</b></h6></li>
+  <li><h6>1.Provide the most applicable answer to the question asked.</h6></li>
+  <li><h6>2.Reply <b>"Yes or No"</b> in prescribed form and if not applicable reply <b>N/A</b></h6></li>
+  <li><h6>3.Irrelevant answers will directly effect your response submitted.  </h6></li>
+  <li><h6>4.You cannot Submit your response in the middle or starting of task.</h6></li>
+  <li><h6>5.User are requested to provide answer and press next for next question.</h6>
+</ul>
+
+<!--NAVBAR ENDING-->
+
+<!--instructions-->
+<!--<div class="instructions">-->
+<!--    <table style="width:70%">
+  <tr class="abc">
+    <th><b>* Read the Following Instructions for easy access of chatbot</b></th>
+  </tr>
+
+
+</table>
+</div>-->
+<!--instructions close-->
+<button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+  <div class="form-container">
+
+    <h1>Chat</h1>
+	<div id="xyz">
+		<label><b>Your previous response : </b></label><br><br>
+  		<label id="bot"></label><br>
+  		<label id="user"></label><br><br>
+  	</div>
+    <label id="msg"><b></b></label>
+    <textarea placeholder="Type response.." id="msg1" required></textarea>
+
+    <button type="submit" class="btn" onclick="append()">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <button type="submit" class="btn" onclick="Submit">Submit</button>
+  </div>
+</div>
+
+<script>
+	var qNo=1;
+	document.getElementById("xyz").style.display = "none";
+	var response={};
+	if(qNo==1){
+		document.getElementById("msg").textContent="Please tell me your user name";
+	}
+	function append(){
+		//console.log(document.getElementById("msg1").value)
+		response[document.getElementById("msg").textContent]=document.getElementById("msg1").value;
+		document.getElementById("bot").textContent=document.getElementById("msg").textContent;
+		document.getElementById("user").textContent=document.getElementById("msg1").value;
+		console.log(response);
+		document.getElementById("xyz").style.display = "block";
+		qNo++;
+                var res=document.getElementById("msg1").value;
+                if(qNo===2){
+		    document.getElementById("msg").textContent="Please enter your Account Number";
+		    document.getElementById("msg1").value=" ";
+		}if(qNo==3){
+		    document.getElementById("msg").textContent="Please enter your registered email";
+		    document.getElementById("msg1").value=" ";
+		}
+		if(qNo==4){
+		    document.getElementById("msg").textContent="Are you paying your EMI/LOAN?";
+		    document.getElementById("msg1").value=" ";
+		}
+                if(qNo==5){
+                    document.getElementById("msg").textContent="If 'No' do you have any problem to pay?(Yes/No)";
+               	    document.getElementById("msg1").value=" ";
+                    }
+		if(qNo==6){
+                    document.getElementById("msg").textContent="If 'Yes' please mention the reason here.(else reply N/A)";
+                    document.getElementById("msg1").value=" ";
+                    }
+//                var res=document.getElementById("msg1").value
+		if(qNo==7){
+                    document.getElementById("msg").textContent="Do you require any 'Moratorium'?";
+                    document.getElementById("msg1").value=" ";
+                }
+                if(qNo==8){
+                    document.getElementById("msg").textContent="If you require 'Moratorium' mention period in months";
+                    document.getElementById("msg1").value=" " ;   
+                }
+		//TODO : ALL the upcoming questions!!! 
+                if(qNo==9){
+                    document.getElementById("msg").textContent="If require any other help please mention below,THANK YOU.";
+                    document.getElementById("msg1").value=" ";
+                }
+                if(qNo==10){
+                    document.getElementById("msg").textContent="Thank you for your response press 'Submit'.";
+                    document.getElementById("msg1").value=" ";
+                }
+
+		if(qNo==10){
+			var s="?"
+			console.log(response)
+			for(var i in response){
+				s=s+""+i+"="+response[i]+"&";
+			}
+                        
+			location.replace("test"+s)
+		}
+
+
+	}
+
+	function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
+</script>
+
+</body>
+</html>
